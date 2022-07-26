@@ -5,7 +5,7 @@ http.createServer(function (req, res) {
     
     var options = {
       'method': 'GET',
-      'url': 'https://bz.labs.lenovo.com/rest/bug?id=240185&include_fields=status,id,creation_time,assigned_to&api_key=qVX4gzBBy3CeuheLMCPPNEX3fk3nafn8DczMhAQP',
+      'url': 'https://api.coingecko.com/api/v3/search?query=btc',
       'headers': {
       }
     };
@@ -14,7 +14,7 @@ http.createServer(function (req, res) {
       console.log(response.body);
       //res.write(response.body);
     }
-    //res.write("Oi");
+    
     );
 
 

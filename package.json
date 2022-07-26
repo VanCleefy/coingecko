@@ -10,6 +10,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "coingecko-api": "^1.0.10",
+    "mongodb": "^4.8.0",
+    "nodemon": "^2.0.19",
     "request": "^2.88.2"
   }
 }
