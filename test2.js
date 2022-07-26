@@ -1,47 +1,34 @@
-const http = require('http')
 const { MongoClient } = require("mongodb");
-
-const hostname = '127.0.0.1'
-const port = '8080'
-
-var server = http.createServer((req, res) => {
-    res.statusCode = 200
-    res.setHeader('Content-Type','text/plain')
-    res.write('Hello World\n')
-})
-
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`)
-})
-
-
 
 async function main() {
 
 	// Connection URI
 	const uri ="mongodb+srv://m001-student:m001-student@sandbox.vmxtn.mongodb.net/Sandbox?retryWrites=true&w=majority";
-
+	const dbName = "sample_airbnb";
 	// Create a new MongoClient
 	const client = new MongoClient(uri);
-
-	try{
+	//console.log(client);
     	// Connect the client to the server
-    	await client.connect();
-	    
-        await listDatabases(client);
-	
-    }catch(e) {
-	
-        console.error(e);
-	
-    }finally{
-	
-        await client.close();
-	
-    }
+    	//await client.connect();
+	    client
+      		.connect()
+      		.then(
+        client =>
+          client
+            .db(dbName)
+            .listCollections()
+            .toArray("collectionsArray") // Returns a promise that will resolve to the list of the collections
+
+      )
+	  .then()
+      .then(cols => console.log("Collections:", cols))
+	  .then(await listDatabases(client), console.log("DB is listed."))
+      .finally(() => client.close(console.log("Closing.")));
+        //await listDatabases(client);
 }
 
 main().catch(console.error);
+
 
 	async function listDatabases(client){
 		const databaseList = await client.db().admin().listDatabases();
